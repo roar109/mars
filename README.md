@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/roar109/mars/status.png)](https://drone.io/github.com/roar109/mars/latest)
+
 ## Build ##
 
     go build -o mars
