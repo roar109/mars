@@ -75,14 +75,33 @@ func buildAndDeploy(project *Project) {
 
 func build(project *Project) (status int, err error) {
 	path := filepath.Join(config.workspaces[project.Workspace], project.Name, "pom.xml")
-	//TODO Set correct java version
-	log.Println(config.java[project.Java])
+
 	log.Println("Building...")
 	cmd := exec.Command("mvn", "-f", path, "clean", "install")
-	//cmd := exec.Command("mvn", "-v")
-	/*env := os.Environ()
-	env = append(env, fmt.Sprintf("JAVA_HOME=%s", config.java[project.Java]))
-	cmd.Env = env*/
+	var env = os.Environ()
+
+	var javaHomeIndex = -1
+	var jbossHomeIndex = -1
+
+	for index, element := range env {
+		if strings.LastIndex(element, "JAVA_HOME=") >= 0 {
+			javaHomeIndex = index
+		}
+
+		if strings.LastIndex(element, "JBOSS_HOME=") >= 0 {
+			jbossHomeIndex = index
+		}
+	}
+	if javaHomeIndex >= 0 {
+		env[javaHomeIndex] = "JAVA_HOME=" + config.java[project.Java]
+	}
+
+	if jbossHomeIndex >= 0 {
+		env[jbossHomeIndex] = "JBOSS_HOME=" + config.jboss[project.Jboss]
+	}
+
+	cmd.Env = env
+
 	return executeCommand(cmd)
 }
 
