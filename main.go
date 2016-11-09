@@ -67,9 +67,9 @@ func buildAndDeploy(project *Project) {
 
 	//Run jboss with artifact
 	if !*skipArtifactCopy && !*skipDeploy {
-		log.Println("Deploying")
-		jboss := filepath.Join(config.jboss[project.Jboss], "bin", "standalone")
-		log.Println(jboss)
+		log.Println("Deploy not enabled")
+		//jboss := filepath.Join(config.jboss[project.Jboss], "bin", "standalone")
+		//log.Println(jboss)
 	}
 }
 
@@ -78,7 +78,7 @@ func build(project *Project) (status int, err error) {
 	//TODO Set correct java version
 	log.Println(config.java[project.Java])
 	log.Println("Building...")
-	cmd := exec.Command("mvn", "-f", path, "clean", "package")
+	cmd := exec.Command("mvn", "-f", path, "clean", "install")
 	//cmd := exec.Command("mvn", "-v")
 	/*env := os.Environ()
 	env = append(env, fmt.Sprintf("JAVA_HOME=%s", config.java[project.Java]))

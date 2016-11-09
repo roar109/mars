@@ -1,0 +1,35 @@
+{
+	"workspaces" : [{
+			"name" : "1",
+			"value" : "c:\\Development_Tools\\Workspace"
+		}, {
+			"name" : "2",
+			"value" : "c:\\Development_Tools\\WorkspacePersonal"
+		}
+	],
+	"java" : [{
+			"name" : "1.7",
+			"value" : "JAVA_HOME_7"
+		},
+		{
+				"name" : "1.8",
+				"value" : "JAVA_HOME_8"
+			}
+	],
+	"jboss" : [{
+			"name" : "64",
+			"value" : "JBOSS_64_HOME"
+		}
+	],
+	"maven":[],
+	"projects" : [{
+			"name" : "some-process",
+			"alias":"sp",
+			"filename" : "some-process.war",
+			"workspace" : "1",
+			"target" : "target",
+			"jboss" : "64",
+			"java" : "1.8"
+		}
+	]
+}
