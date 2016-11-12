@@ -17,6 +17,5 @@ See config.json for examples, the **java**, **jboss** and **workspace** sections
 
 # Roadmap #
 
-- Take java version correctly
 - Start Java container
 - Make the config file configurable with parameter
