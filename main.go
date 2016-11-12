@@ -80,25 +80,9 @@ func build(project *Project) (status int, err error) {
 	cmd := exec.Command("mvn", "-f", path, "clean", "install")
 	var env = os.Environ()
 
-	var javaHomeIndex = -1
-	var jbossHomeIndex = -1
-
-	for index, element := range env {
-		if strings.LastIndex(element, "JAVA_HOME=") >= 0 {
-			javaHomeIndex = index
-		}
-
-		if strings.LastIndex(element, "JBOSS_HOME=") >= 0 {
-			jbossHomeIndex = index
-		}
-	}
-	if javaHomeIndex >= 0 {
-		env[javaHomeIndex] = "JAVA_HOME=" + config.java[project.Java]
-	}
-
-	if jbossHomeIndex >= 0 {
-		env[jbossHomeIndex] = "JBOSS_HOME=" + config.jboss[project.Jboss]
-	}
+	//TODO User pointers instead of copy the array
+	env = addEnvVariable(env, "JAVA_HOME", config.java[project.Java])
+	env = addEnvVariable(env, "JBOSS_HOME", config.jboss[project.Jboss])
 
 	cmd.Env = env
 
@@ -268,4 +252,22 @@ func copyFileContents(src, dst string) (err error) {
 	}
 	err = out.Sync()
 	return
+}
+
+func addEnvVariable(array []string, envirName string, envValue string) []string {
+	var indexEln = -1
+
+	for index, element := range array {
+		if strings.LastIndex(element, envirName+"=") >= 0 {
+			indexEln = index
+		}
+	}
+	log.Println("Setting " + envirName + "=" + envValue)
+	//If not found in existing env we need to add it
+	if indexEln >= 0 {
+		array[indexEln] = envirName + "=" + envValue
+	} else {
+		array = append(array, envirName+"="+envValue)
+	}
+	return array
 }
