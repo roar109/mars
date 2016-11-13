@@ -19,3 +19,4 @@ See config.json for examples, the **java**, **jboss** and **workspace** sections
 
 - Start Java container
 - Make the config file configurable with parameter
+- Use "deployment" as a generic not fixed to jboss
