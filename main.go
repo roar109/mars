@@ -21,6 +21,7 @@ var (
 	projectAlias     = flag.String("p", "", "Project Alias")
 	skipDeploy       = flag.Bool("skipDeploy", false, "Skip deployment phase")
 	skipArtifactCopy = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
+	gitAction        = flag.String("git", "", "Pull latest changes from git")
 )
 
 func init() {
@@ -34,14 +35,16 @@ func main() {
 		return
 	}
 
-	fmt.Println("********* Projects ****************")
+	fmt.Println("Output:\n[alias] Project Name")
+	fmt.Println("\n********* Projects ****************")
+
 	for k, v := range repository.projects {
-		fmt.Printf("%s \t\t[%s]\n", v.Name, k)
+		fmt.Printf("[%s] %s\n", k, v.Name)
 	}
 	fmt.Println("***********************************")
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Enter project name: ")
+	fmt.Println("\nEnter alias: ")
 	text, _ := reader.ReadString('\n')
 
 	if val, ok := projectAliasExists(text); ok {
@@ -53,6 +56,15 @@ func main() {
 }
 
 func buildAndDeploy(project *Project) {
+	//Pre steps
+	if *gitAction != "" {
+		path := filepath.Join(config.workspaces[project.Workspace], project.Name)
+		status, _ := executeGitAction(path, *gitAction)
+		if status > 0 {
+			log.Fatal("Process failed")
+		}
+	}
+
 	//Build artifact
 	status, _ := build(project)
 	if status > 0 {
@@ -80,7 +92,7 @@ func build(project *Project) (status int, err error) {
 	cmd := exec.Command("mvn", "-f", path, "clean", "install")
 	var env = os.Environ()
 
-	//TODO User pointers instead of copy the array
+	//TODO User pointers instead of copying the array
 	env = addEnvVariable(env, "JAVA_HOME", config.java[project.Java])
 	env = addEnvVariable(env, "JBOSS_HOME", config.jboss[project.Jboss])
 
