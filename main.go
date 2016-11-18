@@ -22,6 +22,7 @@ var (
 	skipDeploy       = flag.Bool("skipDeploy", false, "Skip deployment phase")
 	skipArtifactCopy = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
 	gitAction        = flag.String("git", "", "Pull latest changes from git")
+	help             = flag.Bool("help", false, "Show available commands")
 )
 
 func init() {
@@ -32,6 +33,11 @@ func init() {
 func main() {
 	if val, ok := projectAliasExists(*projectAlias); ok {
 		buildAndDeploy(&val)
+		return
+	}
+
+	if *help {
+		printHelp()
 		return
 	}
 
@@ -280,4 +286,12 @@ func addEnvVariable(array []string, envirName string, envValue string) []string 
 		array = append(array, envirName+"="+envValue)
 	}
 	return array
+}
+
+func printHelp() {
+	fmt.Println("Help:")
+	fmt.Println("-p=project-alias\tRun for a project")
+	fmt.Println("-skipArtifactCopy\tDo not copy the generated artifact")
+	fmt.Println("-skipDeploy\t\tIf enabled, do not start the java container")
+	fmt.Println("-git=command\t\tIf available, run git commands before build")
 }
