@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func readConfigFile() *RawConfig {
@@ -82,4 +83,16 @@ func copyFileContents(src, dst string) (err error) {
 	}
 	err = out.Sync()
 	return
+}
+
+func copyArtifact(project *Project) {
+	artifact := filepath.Join(config.workspaces[project.Workspace], project.Name, project.Target, project.Filename)
+	jbossDeploymentFolder := filepath.Join(config.jboss[project.Jboss], "standalone", "deployments", project.Filename)
+
+	fmt.Printf("==> Copying %s to %s\n", artifact, jbossDeploymentFolder)
+
+	err := CopyFile(artifact, jbossDeploymentFolder)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

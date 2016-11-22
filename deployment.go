@@ -1,5 +1,5 @@
 package main
 
-func deploy() {
+func deploy(project *Project) {
 	//something here
 }

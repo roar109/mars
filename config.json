@@ -29,7 +29,8 @@
 			"workspace" : "1",
 			"target" : "target",
 			"jboss" : "64",
-			"java" : "1.8"
+			"java" : "1.8",
+			"flow" : 2
 		}
 	]
 }

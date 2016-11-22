@@ -13,6 +13,7 @@ type Project struct {
 	Jboss     string `json:"jboss"`
 	Java      string `json:"java"`
 	Alias     string `json:"alias"`
+	Flow      int    `json:"flow"`
 }
 
 type RawConfig struct {

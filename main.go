@@ -46,7 +46,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Println("\nEnter alias: ")
 	text, _ := reader.ReadString('\n')
-
+	fmt.Println(" ")
 	if val, ok := projectAliasExists(text); ok {
 		buildAndDeploy(&val)
 	} else {
@@ -65,35 +65,12 @@ func buildAndDeploy(project *Project) {
 		}
 	}
 
-	//Build artifact
-	status, _ := build(project)
-	if status > 0 {
-		log.Fatal("Process failed")
-	}
+	flow := GetFlow(project.Flow)
 
-	//Copy the artifact
-	if !*skipArtifactCopy {
-		log.Println("Copying the file")
-		copyArtifact(project)
-	}
-
-	//Run jboss with artifact
-	if !*skipArtifactCopy && !*skipDeploy {
-		log.Println("Deploy not enabled")
-		deploy()
-		//jboss := filepath.Join(config.jboss[project.Jboss], "bin", "standalone")
-	}
-}
-
-func copyArtifact(project *Project) {
-	artifact := filepath.Join(config.workspaces[project.Workspace], project.Name, project.Target, project.Filename)
-	jbossDeploymentFolder := filepath.Join(config.jboss[project.Jboss], "standalone", "deployments", project.Filename)
-
-	fmt.Printf("==> Copying %s to %s\n", artifact, jbossDeploymentFolder)
-
-	err := CopyFile(artifact, jbossDeploymentFolder)
-	if err != nil {
-		log.Fatal(err)
+	for _, stage := range states {
+		if flow.Can(stage) {
+			flow.Event(stage, project)
+		}
 	}
 }
 
