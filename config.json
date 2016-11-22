@@ -19,18 +19,42 @@
 	"jboss" : [{
 			"name" : "64",
 			"value" : "JBOSS_64_HOME"
+		}, {
+			"name" : "63",
+			"value" : "JBOSS_63_HOME"
+		}, {
+			"name" : "632",
+			"value" : "JBOSS_632_HOME"
 		}
 	],
-	"maven":[],
+	"maven" : [],
 	"projects" : [{
-			"name" : "some-process",
-			"alias":"sp",
-			"filename" : "some-process.war",
+			"name" : "ps-okta-export-process",
+			"alias" : "okta",
+			"filename" : "ps-okta-export-process.war",
 			"workspace" : "1",
 			"target" : "target",
 			"jboss" : "64",
 			"java" : "1.8",
-			"flow" : 2
+			"flow":2
+		}, {
+			"name" : "EmployeeDataServices",
+			"alias" : "eds",
+			"filename" : "EmployeeDataServices.war",
+			"workspace" : "1",
+			"target" : "target",
+			"jboss" : "63",
+			"java" : "1.7",
+			"flow":2
+		}, {
+			"name" : "adp-integrations-utils",
+			"alias" : "adp-utils",
+			"filename" : "adp-integrations-utils.jar",
+			"workspace" : "1",
+			"target" : "target",
+			"jboss" : "",
+			"java" : "1.8",
+			"flow":1
 		}
 	]
 }

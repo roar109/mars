@@ -12,6 +12,7 @@ import (
 var (
 	config           = new(Config)
 	repository       = new(Repository)
+	projects         = new(Projects)
 	projectAlias     = flag.String("p", "", "Project Alias")
 	skipDeploy       = flag.Bool("skipDeploy", false, "Skip deployment phase")
 	skipArtifactCopy = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
@@ -38,8 +39,10 @@ func main() {
 	fmt.Println("Output:\n[alias] Project Name")
 	fmt.Println("\n********* Projects ****************")
 
-	for k, v := range repository.projects {
-		fmt.Printf("[%s] %s\n", k, v.Name)
+	for _, proj := range *projects {
+		if proj.Alias != "" {
+			fmt.Printf("[%s] %s\n", proj.Alias, proj.Name)
+		}
 	}
 	fmt.Println("***********************************")
 
@@ -47,6 +50,7 @@ func main() {
 	fmt.Println("\nEnter alias: ")
 	text, _ := reader.ReadString('\n')
 	fmt.Println(" ")
+
 	if val, ok := projectAliasExists(text); ok {
 		buildAndDeploy(&val)
 	} else {

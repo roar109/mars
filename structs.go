@@ -32,3 +32,17 @@ type Config struct {
 type Repository struct {
 	projects map[string]Project
 }
+
+type Projects []Project
+
+func (projects Projects) Len() int {
+	return len(projects)
+}
+
+func (projects Projects) Less(i, j int) bool {
+	return projects[i].Alias < projects[j].Alias
+}
+
+func (projects Projects) Swap(i, j int) {
+	projects[i], projects[j] = projects[j], projects[i]
+}

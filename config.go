@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -27,10 +28,16 @@ func parseProjectsConfig() {
 		config.workspaces[ws.Name] = getSystemPropOrValue(ws.Value)
 	}
 
+	projectsLocal := make(Projects, len(rawConfig.Projects))
+
 	//Parse projects array
 	for _, proj := range rawConfig.Projects {
 		repository.projects[strings.ToLower(proj.Alias)] = proj
+		projectsLocal = append(projectsLocal, proj)
 	}
+
+	sort.Sort(projectsLocal)
+	projects = &projectsLocal
 }
 
 func getSystemPropOrValue(prop string) string {
