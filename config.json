@@ -13,48 +13,36 @@
 		},
 		{
 				"name" : "1.8",
-				"value" : "JAVA_HOME_8"
+				"value" : "C:\\Program Files\\Java\\jdk1.8.0_66"
 			}
 	],
 	"jboss" : [{
 			"name" : "64",
 			"value" : "JBOSS_64_HOME"
 		}, {
-			"name" : "63",
-			"value" : "JBOSS_63_HOME"
-		}, {
-			"name" : "632",
-			"value" : "JBOSS_632_HOME"
+			"name" : "10",
+			"value" : "C:\\Development_Tools\\JBoss\\wildfly-10.0.0.Final"
 		}
 	],
 	"maven" : [],
 	"projects" : [{
-			"name" : "ps-okta-export-process",
-			"alias" : "okta",
-			"filename" : "ps-okta-export-process.war",
+			"name" : "process-1",
+			"alias" : "p1",
+			"filename" : "process-1.war",
+			"workspace" : "1",
+			"target" : "target",
+			"jboss" : "10",
+			"java" : "1.8",
+			"flow":2
+		}, {
+			"name" : "process-2",
+			"alias" : "p2",
+			"filename" : "process-2.war",
 			"workspace" : "1",
 			"target" : "target",
 			"jboss" : "64",
-			"java" : "1.8",
-			"flow":2
-		}, {
-			"name" : "EmployeeDataServices",
-			"alias" : "eds",
-			"filename" : "EmployeeDataServices.war",
-			"workspace" : "1",
-			"target" : "target",
-			"jboss" : "63",
 			"java" : "1.7",
 			"flow":2
-		}, {
-			"name" : "adp-integrations-utils",
-			"alias" : "adp-utils",
-			"filename" : "adp-integrations-utils.jar",
-			"workspace" : "1",
-			"target" : "target",
-			"jboss" : "",
-			"java" : "1.8",
-			"flow":1
 		}
 	]
 }
