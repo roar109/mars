@@ -11,7 +11,7 @@ import (
 )
 
 func readConfigFile() *RawConfig {
-	file, e := ioutil.ReadFile("./config.json")
+	file, e := ioutil.ReadFile(*configFileName)
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)

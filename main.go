@@ -18,6 +18,7 @@ var (
 	skipArtifactCopy = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
 	gitAction        = flag.String("git", "", "Execute git command")
 	help             = flag.Bool("help", false, "Show available commands")
+	configFileName   = flag.String("file", "config.json", "The path to the json configuration file, if not specify takes config.json by default")
 )
 
 func init() {
@@ -84,4 +85,5 @@ func printHelp() {
 	fmt.Println("-skipArtifactCopy\tDo not copy the generated artifact")
 	fmt.Println("-skipDeploy\t\tIf enabled, do not start the java container")
 	fmt.Println("-git=command\t\tIf available, run git commands before build")
+	fmt.Println("-file=myfile.json\t\tThe path to the json configuration file, if not specify takes config.json by default")
 }

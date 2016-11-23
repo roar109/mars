@@ -19,7 +19,7 @@ See config.json for examples, the **java**, **jboss** and **workspace** sections
 
 # Roadmap #
 
-- Start Java container
-- use different maven path
-- Make the config file configurable with parameter
-- Use "deployment" as a generic not fixed to jboss
+- [] Start Java container
+- [] use different maven path
+- [x] Make the config file configurable with parameter
+- [] Use "deployment" as a generic not fixed to jboss
