@@ -17,6 +17,12 @@ or just call the binary for a command prompt
 
 See config.json for examples, the **java**, **jboss** and **workspace** sections accept system variables or path, first try to get system variable if not found uses it as a relative path.
 
+Available flows:
+
+	1 - Maven clean and install 
+	2 - Same as #1 plus copy the generated artifact to deployment folder
+	3 - Same as #2 plus start the container (Not implemented yet)
+
 # Roadmap #
 
 - [] Start Java container
