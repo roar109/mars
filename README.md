@@ -1,4 +1,3 @@
-[![Build Status](https://drone.io/github.com/roar109/mars/status.png)](https://drone.io/github.com/roar109/mars/latest)
 
 Small command line tool to compile and copy a generated artifact
 
