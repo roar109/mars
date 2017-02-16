@@ -1,10 +1,12 @@
 package main
 
+//KeyValue representation of a json key:value
 type KeyValue struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
 
+//Project Representation of a project
 type Project struct {
 	Name      string `json:"name"`
 	Filename  string `json:"filename"`
@@ -16,6 +18,7 @@ type Project struct {
 	Flow      int    `json:"flow"`
 }
 
+//RawConfig Representation of the given json file with the configuration
 type RawConfig struct {
 	Workspaces []KeyValue `json:"workspaces"`
 	Java       []KeyValue `json:"java"`
@@ -23,16 +26,19 @@ type RawConfig struct {
 	Jboss      []KeyValue `json:"jboss"`
 }
 
+//Config Cache or configurations with values parsed
 type Config struct {
 	java       map[string]string
 	jboss      map[string]string
 	workspaces map[string]string
 }
 
+//Repository Cache of the projects
 type Repository struct {
 	projects map[string]Project
 }
 
+//Projects Structure to compare projects and order them
 type Projects []Project
 
 func (projects Projects) Len() int {

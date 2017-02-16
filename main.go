@@ -27,8 +27,8 @@ func init() {
 }
 
 func main() {
-	if val, ok := projectAliasExists(*projectAlias); ok {
-		buildAndDeploy(&val)
+	if proj, ok := projectAliasExists(*projectAlias); ok {
+		buildAndDeploy(&proj)
 		return
 	}
 

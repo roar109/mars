@@ -40,6 +40,7 @@ func parseProjectsConfig() {
 	projects = &projectsLocal
 }
 
+//Try to get a system variable with the given string, if not return the same string
 func getSystemPropOrValue(prop string) string {
 	val := os.Getenv(prop)
 	if val != "" {

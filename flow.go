@@ -6,8 +6,10 @@ import (
 	"github.com/looplab/fsm"
 )
 
+//states ... posible states that a flow can hold, each state us a flow.
 var states = []string{"build", "copy", "deploy"}
 
+//GetFlow Build and return the flow by number
 func GetFlow(flow int) *fsm.FSM {
 	if flow == 1 {
 		return NewBuildFlow()
@@ -15,11 +17,12 @@ func GetFlow(flow int) *fsm.FSM {
 		return NewBuildAndCopyFlow()
 	} else if flow == 3 {
 		return NewBuildAndDeployFlow()
-	} else {
-		return NewBuildAndDeployFlow()
 	}
+	//If any other takes complete flow as default #3
+	return NewBuildAndDeployFlow()
 }
 
+//NewBuildFlow Flow to only build an artifact
 func NewBuildFlow() *fsm.FSM {
 	log.Println("Using Build flow")
 	return fsm.NewFSM(
@@ -33,6 +36,7 @@ func NewBuildFlow() *fsm.FSM {
 	)
 }
 
+//NewBuildAndCopyFlow flow to build and copy the artifact
 func NewBuildAndCopyFlow() *fsm.FSM {
 	log.Println("Using Build and Copy flow")
 	return fsm.NewFSM(
@@ -48,6 +52,7 @@ func NewBuildAndCopyFlow() *fsm.FSM {
 	)
 }
 
+//NewBuildAndDeployFlow Flow to build, copy and start the java container
 func NewBuildAndDeployFlow() *fsm.FSM {
 	log.Println("Using Build and Deploy flow")
 	return fsm.NewFSM(
@@ -65,14 +70,17 @@ func NewBuildAndDeployFlow() *fsm.FSM {
 	)
 }
 
+//Build Compile using maven a java project
 func Build(e *fsm.Event) {
 	project := e.Args[0].(*Project)
 	status, _ := build(project)
+
 	if status > 0 {
 		log.Fatal("Process failed")
 	}
 }
 
+//CopyArtifact Copy the just generated artifact to a deployment folder
 func CopyArtifact(e *fsm.Event) {
 	if !*skipArtifactCopy {
 		project := e.Args[0].(*Project)
@@ -81,6 +89,7 @@ func CopyArtifact(e *fsm.Event) {
 	}
 }
 
+//Deploy Start java container
 func Deploy(e *fsm.Event) {
 	if !*skipArtifactCopy && !*skipDeploy {
 		project := e.Args[0].(*Project)
