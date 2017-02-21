@@ -27,3 +27,4 @@ Available flows:
 - [] Use different maven instalation
 - [x] Make the config file configurable with parameter
 - [] Use "deployment" as a generic not fixed to jboss
+- [x] Create snapshots of the config.json file on demand

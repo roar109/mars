@@ -10,30 +10,28 @@ import (
 )
 
 var (
-	config           = new(Config)
-	repository       = new(Repository)
-	projects         = new(Projects)
-	projectAlias     = flag.String("p", "", "Project Alias")
-	skipDeploy       = flag.Bool("skipDeploy", false, "Skip deployment phase")
-	skipArtifactCopy = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
-	gitAction        = flag.String("git", "", "Execute git command")
-	help             = flag.Bool("help", false, "Show available commands")
-	configFileName   = flag.String("file", "config.json", "The path to the json configuration file, if not specify takes config.json by default")
+	config                   = new(Config)
+	repository               = new(Repository)
+	projects                 = new(Projects)
+	projectAlias             = flag.String("p", "", "Project Alias")
+	skipDeploy               = flag.Bool("skipDeploy", false, "Skip deployment phase")
+	createConfigSnapshotFlag = flag.Bool("cs", false, "Create config.json snapshot before execute the process")
+	skipArtifactCopy         = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
+	gitAction                = flag.String("git", "", "Execute git command")
+	configFileName           = flag.String("file", "config.json", "The path to the json configuration file, if not specify takes config.json by default")
 )
 
 func init() {
 	flag.Parse()
+	if *createConfigSnapshotFlag {
+		go createConfigSnapshot()
+	}
 	parseProjectsConfig()
 }
 
 func main() {
 	if proj, ok := projectAliasExists(*projectAlias); ok {
 		buildAndDeploy(&proj)
-		return
-	}
-
-	if *help {
-		printHelp()
 		return
 	}
 
@@ -77,13 +75,4 @@ func buildAndDeploy(project *Project) {
 			flow.Event(stage, project)
 		}
 	}
-}
-
-func printHelp() {
-	fmt.Println("Help:")
-	fmt.Println("-p=project-alias\tRun for a project")
-	fmt.Println("-skipArtifactCopy\tDo not copy the generated artifact")
-	fmt.Println("-skipDeploy\t\tIf enabled, do not start the java container")
-	fmt.Println("-git=command\t\tIf available, run git commands before build")
-	fmt.Println("-file=myfile.json\t\tThe path to the json configuration file, if not specify takes config.json by default")
 }
