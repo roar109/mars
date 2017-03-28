@@ -11,6 +11,7 @@ func parseProjectsConfig() {
 	rawConfig := readConfigFile()
 
 	//Fill maps
+	config.maven = make(map[string]string, len(rawConfig.Maven))
 	config.java = make(map[string]string, len(rawConfig.Java))
 	config.jboss = make(map[string]string, len(rawConfig.Jboss))
 	config.workspaces = make(map[string]string, len(rawConfig.Workspaces))
@@ -26,6 +27,10 @@ func parseProjectsConfig() {
 
 	for _, ws := range rawConfig.Workspaces {
 		config.workspaces[ws.Name] = getSystemPropOrValue(ws.Value)
+	}
+
+	for _, mv := range rawConfig.Maven {
+		config.maven[mv.Name] = getSystemPropOrValue(mv.Value)
 	}
 
 	projectsLocal := make(Projects, len(rawConfig.Projects))

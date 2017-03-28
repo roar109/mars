@@ -15,6 +15,7 @@ type Project struct {
 	Jboss     string `json:"jboss"`
 	Java      string `json:"java"`
 	Alias     string `json:"alias"`
+	Maven     string `json:"maven"`
 	Flow      int    `json:"flow"`
 }
 
@@ -24,6 +25,7 @@ type RawConfig struct {
 	Java       []KeyValue `json:"java"`
 	Projects   []Project  `json:"projects"`
 	Jboss      []KeyValue `json:"jboss"`
+	Maven      []KeyValue `json:"maven"`
 }
 
 //Config Cache or configurations with values parsed
@@ -31,6 +33,7 @@ type Config struct {
 	java       map[string]string
 	jboss      map[string]string
 	workspaces map[string]string
+	maven      map[string]string
 }
 
 //Repository Cache of the projects

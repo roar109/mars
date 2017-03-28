@@ -24,7 +24,8 @@ Available flows:
 # Roadmap #
 
 - [] Start Java container
-- [] Use different maven instalation
-- [x] Make the config file configurable with parameter
+- [x] Use different maven installation
+- [x] Make the config file configurable with a parameter
 - [] Use "deployment" as a generic not fixed to jboss
 - [x] Create snapshots of the config.json file on demand
+- [] Better project listing (consider group by a category)

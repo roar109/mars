@@ -30,6 +30,7 @@ func init() {
 }
 
 func main() {
+
 	if proj, ok := projectAliasExists(*projectAlias); ok {
 		buildAndDeploy(&proj)
 		return
