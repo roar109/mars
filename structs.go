@@ -26,6 +26,7 @@ type RawConfig struct {
 	Projects   []Project  `json:"projects"`
 	Jboss      []KeyValue `json:"jboss"`
 	Maven      []KeyValue `json:"maven"`
+	Sets       []Set      `json:"sets"`
 }
 
 //Config Cache or configurations with values parsed
@@ -34,6 +35,12 @@ type Config struct {
 	jboss      map[string]string
 	workspaces map[string]string
 	maven      map[string]string
+}
+
+//Set detail
+type Set struct {
+	Name   string   `json:"name"`
+	Values []string `json:"values"`
 }
 
 //Repository Cache of the projects

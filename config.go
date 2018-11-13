@@ -17,6 +17,8 @@ func parseProjectsConfig() {
 	config.workspaces = make(map[string]string, len(rawConfig.Workspaces))
 	repository.projects = make(map[string]Project, len(rawConfig.Projects))
 
+	*sets = rawConfig.Sets
+
 	for _, jav := range rawConfig.Java {
 		config.java[jav.Name] = getSystemPropOrValue(jav.Value)
 	}

@@ -13,7 +13,9 @@ var (
 	config                   = new(Config)
 	repository               = new(Repository)
 	projects                 = new(Projects)
+	sets                     = new([]Set)
 	projectAlias             = flag.String("p", "", "Project Alias")
+	setFlag                  = flag.String("s", "", "Set to deploy")
 	skipDeploy               = flag.Bool("skipDeploy", false, "Skip deployment phase")
 	createConfigSnapshotFlag = flag.Bool("cs", false, "Create config.json snapshot before execute the process")
 	skipArtifactCopy         = flag.Bool("skipArtifactCopy", false, "Skip artifact copy to deployment folder")
@@ -30,6 +32,25 @@ func init() {
 }
 
 func main() {
+
+	//Check if is a set
+	if *setFlag != "" {
+		for _, set := range *sets {
+
+			if *setFlag == set.Name {
+				fmt.Println("Set name: " + set.Name)
+				for _, project := range set.Values {
+					if proj, ok := projectAliasExists(project); ok {
+						fmt.Println("***********************************")
+						fmt.Println("\nProject to build: " + proj.Name)
+						fmt.Println("***********************************")
+						buildAndDeploy(&proj)
+					}
+				}
+			}
+		}
+		return
+	}
 
 	if proj, ok := projectAliasExists(*projectAlias); ok {
 		buildAndDeploy(&proj)
