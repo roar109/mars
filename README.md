@@ -29,4 +29,4 @@ Available flows:
 - [] Use "deployment" as a generic not fixed to jboss
 - [x] Create snapshots of the config.json file on demand
 - [] Better project listing (consider group by a category)
-- [] Consider creating "Sets" of projects and be able to deploy them together.
+- [x] Consider creating "Sets" of projects and be able to deploy them together.
